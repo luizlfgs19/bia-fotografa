@@ -41,7 +41,7 @@
         #wpp-btn:hover { transform: scale(1.1); }
 
         #booking-card {
-            display: none; /* Começa escondido */
+            display: none;
             background: white;
             padding: 25px;
             border-radius: 15px;
@@ -69,7 +69,7 @@
     <header class="hero-bg h-screen flex flex-col items-center justify-center text-center text-white px-4">
         <h1 class="text-5xl md:text-7xl mb-4">Bia Fotógrafa</h1>
         <p class="text-xl md:text-2xl mb-8 font-light italic">Realizando Sonhos e Eternizando Histórias</p>
-        <button onclick="toggleBooking()" class="bg-white text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-stone-200 transition uppercase tracking-widest text-sm">Solicitar Orçamento</button>
+        <button onclick="toggleBooking()" class="bg-white text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-stone-200 transition uppercase tracking-widest text-sm shadow-lg">Solicitar Orçamento</button>
     </header>
 
     <section class="py-20 max-w-6xl mx-auto px-4">
@@ -213,7 +213,7 @@
     </div>
 
     <script>
-        // Função para abrir e fechar o formulário
+        // Função para Abrir/Fechar
         function toggleBooking() {
             const card = document.getElementById('booking-card');
             if (card.style.display === 'block') {
@@ -223,9 +223,9 @@
             }
         }
 
-        // Função de envio
+        // Função de Envio com Correção de Acentos
         function enviarWhatsApp() {
-            const numero = "5500000000000"; // INSIRA SEU NÚMERO AQUI
+            const numero = "5500000000000"; // INSIRA SEU NÚMERO COM DDD AQUI
             
             const servico = document.getElementById('tipo-servico').value;
             const pacote = document.getElementById('pacote-escolhido').value;
@@ -238,15 +238,21 @@
 
             const dataFormatada = dataRaw.split('-').reverse().join('/');
             
-            const mensagem = `Olá Bia! Gostaria de agendar uma sessão:%0A` + 
-                             `*Serviço:* ${servico}%0A` + 
-                             `*Pacote:* ${pacote}%0A` + 
-                             `*Data:* ${dataFormatada}`;
+            // O texto é montado normalmente com quebras de linha (\n)
+            const mensagemTexto = `Olá Bia! Gostaria de agendar uma sessão:\n\n` + 
+                                  `*Serviço:* ${servico}\n` + 
+                                  `*Pacote:* ${pacote}\n` + 
+                                  `*Data:* ${dataFormatada}`;
 
-            window.open(`https://wa.me/${numero}?text=${mensagem}`, '_blank');
+            // A função encodeURIComponent converte acentos e espaços para o formato de URL
+            const linkWhatsApp = `https://wa.me/${numero}?text=${encodeURIComponent(mensagemTexto)}`;
+
+            window.open(linkWhatsApp, '_blank');
         }
     </script>
 </body>
 </html>
+</html>
+
 
 
