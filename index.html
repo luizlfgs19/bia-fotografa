@@ -8,11 +8,59 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Lato:wght@300;400&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Lato', sans-serif; }
-        h1, h2 { font-family: 'Playfair Display', serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
         .hero-bg {
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070');
             background-size: cover;
             background-position: center;
+        }
+
+        /* Estilos do Botão Flutuante e Formulário */
+        #wpp-floating-container {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        #wpp-btn {
+            background-color: #25d366;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        #wpp-btn:hover { transform: scale(1.1); }
+
+        #booking-card {
+            display: none; /* Começa escondido */
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+            width: 300px;
+            margin-bottom: 15px;
+            border-top: 5px solid #1c1c1c;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 11px; font-weight: bold; text-transform: uppercase; color: #666; margin-bottom: 5px; }
+        .input-group select, .input-group input { 
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; background: #fdfdfd;
         }
     </style>
 </head>
@@ -21,7 +69,7 @@
     <header class="hero-bg h-screen flex flex-col items-center justify-center text-center text-white px-4">
         <h1 class="text-5xl md:text-7xl mb-4">Bia Fotógrafa</h1>
         <p class="text-xl md:text-2xl mb-8 font-light italic">Realizando Sonhos e Eternizando Histórias</p>
-        <a href="https://wa.me/5500000000000" class="bg-white text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-stone-200 transition uppercase tracking-widest text-sm">Solicitar Orçamento</a>
+        <button onclick="toggleBooking()" class="bg-white text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-stone-200 transition uppercase tracking-widest text-sm">Solicitar Orçamento</button>
     </header>
 
     <section class="py-20 max-w-6xl mx-auto px-4">
@@ -52,39 +100,38 @@
             </div>
         </div>
     </section>
+
     <section class="py-20 bg-stone-100">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-4xl text-center mb-4 uppercase tracking-tighter">Investimento</h2>
             <p class="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
-                Fotografia para o dia do seu casamento. Escolha o pacote que melhor se adapta às suas necessidades e orçamento.
+                Fotografia para o seu momento especial. Escolha o pacote que melhor se adapta às suas necessidades.
             </p>
-
+            
             <div class="grid md:grid-cols-3 gap-8">
-                
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-stone-200">
-                    <div class="bg-stone-800 text-white py-4 px-6">
-                        <h3 class="text-xl uppercase tracking-widest font-bold text-center">Ensaio Fotográfico</h3>
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-stone-200 flex flex-col">
+                    <div class="bg-stone-800 text-white py-4 px-6 text-center">
+                        <h3 class="text-xl uppercase tracking-widest font-bold">Ensaios e Eventos</h3>
                     </div>
-                    <div class="p-8">
+                    <div class="p-8 flex-grow">
                         <ul class="space-y-4 mb-8 text-gray-700">
                             <li class="flex justify-between border-b pb-2"><span>10 Fotos</span> <span class="font-bold">R$ 100</span></li>
                             <li class="flex justify-between border-b pb-2"><span>25 Fotos</span> <span class="font-bold">R$ 200</span></li>
                             <li class="flex justify-between border-b pb-2"><span>50 Fotos</span> <span class="font-bold">R$ 400</span></li>
-                            <li class="bg-stone-50 p-3 rounded text-center">
+                            <li class="bg-stone-50 p-3 rounded text-center border border-stone-200">
                                 <span class="block font-bold text-lg">100 Fotos + Vídeo Making Of</span>
                                 <span class="text-2xl font-serif text-stone-800">R$ 600</span>
-                                <small class="block text-xs text-gray-500 mt-1">Inclui a preparação da noiva no dia</small>
                             </li>
                         </ul>
-                        <a href="https://wa.me/5500000000000" class="block w-full text-center bg-stone-800 text-white py-3 rounded font-bold hover:bg-stone-700 transition">Solicitar Ensaio</a>
+                        <button onclick="toggleBooking()" class="block w-full text-center bg-stone-800 text-white py-3 rounded font-bold hover:bg-stone-700 transition">Solicitar Pacote</button>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow-md overflow-hidden border-2 border-stone-800 transform md:scale-105">
-                    <div class="bg-stone-800 text-white py-4 px-6">
-                        <h3 class="text-xl uppercase tracking-widest font-bold text-center">Casamento Civil</h3>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border-2 border-stone-800 transform md:scale-105 z-10 flex flex-col">
+                    <div class="bg-stone-800 text-white py-4 px-6 text-center">
+                        <h3 class="text-xl uppercase tracking-widest font-bold">Casamento Civil</h3>
                     </div>
-                    <div class="p-8">
+                    <div class="p-8 flex-grow">
                         <ul class="space-y-4 mb-8 text-gray-700">
                             <li class="flex justify-between border-b pb-2"><span>10 Fotos</span> <span class="font-bold">R$ 100</span></li>
                             <li class="flex justify-between border-b pb-2"><span>25 Fotos</span> <span class="font-bold">R$ 200</span></li>
@@ -92,44 +139,114 @@
                             <li class="bg-stone-100 p-3 rounded text-center border border-dashed border-stone-400">
                                 <span class="block font-bold text-lg">100 Fotos + Vídeo Making Of</span>
                                 <span class="text-2xl font-serif text-stone-800">R$ 600</span>
-                                <small class="block text-xs text-gray-500 mt-1">Inclui a preparação da noiva no dia</small>
                             </li>
                         </ul>
-                        <a href="https://wa.me/5500000000000" class="block w-full text-center bg-stone-800 text-white py-3 rounded font-bold hover:bg-stone-700 transition">Agendar Civil</a>
+                        <button onclick="toggleBooking()" class="block w-full text-center bg-stone-800 text-white py-3 rounded font-bold hover:bg-stone-700 transition">Agendar Civil</button>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-stone-200">
-                    <div class="bg-stone-800 text-white py-4 px-6">
-                        <h3 class="text-xl uppercase tracking-widest font-bold text-center">Casamento Religioso</h3>
-</div>
-                    <div class="p-8">
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-stone-200 flex flex-col">
+                    <div class="bg-stone-800 text-white py-4 px-6 text-center">
+                        <h3 class="text-xl uppercase tracking-widest font-bold">Casamento Religioso</h3>
+                    </div>
+                    <div class="p-8 flex-grow">
                         <ul class="space-y-4 mb-8 text-gray-700">
                             <li class="flex justify-between border-b pb-2"><span>10 Fotos</span> <span class="font-bold">R$ 100</span></li>
                             <li class="flex justify-between border-b pb-2"><span>25 Fotos</span> <span class="font-bold">R$ 200</span></li>
                             <li class="flex justify-between border-b pb-2"><span>50 Fotos</span> <span class="font-bold">R$ 400</span></li>
-                            <li class="bg-stone-50 p-3 rounded text-center">
+                            <li class="bg-stone-50 p-3 rounded text-center border border-stone-200">
                                 <span class="block font-bold text-lg">100 Fotos + Vídeo Making Of</span>
                                 <span class="text-2xl font-serif text-stone-800">R$ 600</span>
-                                <small class="block text-xs text-gray-500 mt-1">Inclui a preparação da noiva no dia</small>
                             </li>
                         </ul>
-                        <a href="https://wa.me/5500000000000" class="block w-full text-center bg-stone-800 text-white py-3 rounded font-bold hover:bg-stone-700 transition">Agendar Religioso</a>
+                        <button onclick="toggleBooking()" class="block w-full text-center bg-stone-800 text-white py-3 rounded font-bold hover:bg-stone-700 transition">Agendar Religioso</button>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
     <footer class="py-12 bg-white text-center">
         <p class="mb-4">Bia Fotógrafa &copy; 2026</p>
-        <a href="https://wa.me/5500000000000" class="text-green-600 font-bold hover:underline flex justify-center items-center gap-2">
-            Falar diretamente no WhatsApp
-        </a>
     </footer>
 
-</body>
+    <div id="wpp-floating-container">
+        <div id="booking-card">
+            <h3 class="text-xl mb-4 border-b pb-2 font-bold text-gray-800">Agendar Minha Data</h3>
+            
+            <div class="input-group">
+                <label>Tipo de Registro:</label>
+                <select id="tipo-servico">
+                    <option value="Ensaio Fotográfico">Ensaio Fotográfico</option>
+                    <option value="Aniversário">Aniversário</option>
+                    <option value="Chá">Chá (Bebê/Revelação/Cozinha)</option>
+                    <option value="Casamento Civil">Casamento Civil</option>
+                    <option value="Casamento Religioso">Casamento Religioso</option>
+                </select>
+            </div>
 
+            <div class="input-group">
+                <label>Pacote Escolhido:</label>
+                <select id="pacote-escolhido">
+                    <option value="10 fotos - R$100">10 fotos - R$100</option>
+                    <option value="25 fotos - R$200">25 fotos - R$200</option>
+                    <option value="50 fotos - R$400">50 fotos - R$400</option>
+                    <option value="100 fotos + Making Of - R$600">100 fotos + Making Of - R$600</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Para qual dia?</label>
+                <input type="date" id="data-agendamento">
+            </div>
+
+            <button onclick="enviarWhatsApp()" class="w-full bg-[#25d366] text-white py-4 rounded-lg font-bold hover:bg-[#1ebe57] transition shadow-md flex items-center justify-center gap-2">
+                Concluir no WhatsApp
+            </button>
+        </div>
+
+        <div id="wpp-btn" onclick="toggleBooking()">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.747-2.874-2.512-2.96-2.626-.087-.115-.708-.941-.708-1.795 0-.855.43-1.274.583-1.447.153-.174.335-.217.446-.217h.32c.113 0 .262-.043.41.31.153.362.525 1.274.57 1.366.044.092.073.199.013.318-.06.118-.09.191-.179.297l-.271.328c-.09.106-.184.221-.078.403.105.181.467.766.999 1.24.686.611 1.265.801 1.446.885.181.085.286.07.391-.05.105-.121.451-.523.571-.7.121-.177.241-.148.406-.087.166.061 1.053.497 1.234.587.181.091.301.135.346.213.045.078.045.452-.099.858zM12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2z"/>
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        // Função para abrir e fechar o formulário
+        function toggleBooking() {
+            const card = document.getElementById('booking-card');
+            if (card.style.display === 'block') {
+                card.style.display = 'none';
+            } else {
+                card.style.display = 'block';
+            }
+        }
+
+        // Função de envio
+        function enviarWhatsApp() {
+            const numero = "5500000000000"; // INSIRA SEU NÚMERO AQUI
+            
+            const servico = document.getElementById('tipo-servico').value;
+            const pacote = document.getElementById('pacote-escolhido').value;
+            const dataRaw = document.getElementById('data-agendamento').value;
+
+            if (!dataRaw) {
+                alert("Por favor, selecione uma data para o agendamento.");
+                return;
+            }
+
+            const dataFormatada = dataRaw.split('-').reverse().join('/');
+            
+            const mensagem = `Olá Bia! Gostaria de agendar uma sessão:%0A` + 
+                             `*Serviço:* ${servico}%0A` + 
+                             `*Pacote:* ${pacote}%0A` + 
+                             `*Data:* ${dataFormatada}`;
+
+            window.open(`https://wa.me/${numero}?text=${mensagem}`, '_blank');
+        }
+    </script>
+</body>
 </html>
+
 
