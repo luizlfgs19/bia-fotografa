@@ -16,55 +16,43 @@
         }
 
         /* Estilos do Botão Flutuante e Formulário */
-        #wpp-floating-container {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        #wpp-btn {
-            background-color: #25d366;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
-        }
+        #wpp-floating-container { position: fixed; bottom: 25px; right: 25px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
+        #wpp-btn { background-color: #25d366; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: transform 0.3s ease; }
         #wpp-btn:hover { transform: scale(1.1); }
-
-        #booking-card {
-            display: none;
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.25);
-            width: 300px;
-            margin-bottom: 15px;
-            border-top: 5px solid #1c1c1c;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        #booking-card { display: none; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.25); width: 300px; margin-bottom: 15px; border-top: 5px solid #1c1c1c; animation: fadeIn 0.3s ease; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         .input-group { margin-bottom: 15px; }
         .input-group label { display: block; font-size: 11px; font-weight: bold; text-transform: uppercase; color: #666; margin-bottom: 5px; }
-        .input-group select, .input-group input { 
-            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; background: #fdfdfd;
+        .input-group select, .input-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; background: #fdfdfd; }
+
+        /* Estilo para o Modal da Foto (Lightbox) */
+        #photo-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
         }
+        #photo-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .portfolio-img { cursor: zoom-in; transition: opacity 0.3s; }
+        .portfolio-img:hover { opacity: 0.8; }
     </style>
 </head>
 <body class="bg-stone-50 text-gray-800 font-light">
+
+    <div id="photo-modal" onclick="closePhoto()">
+        <img id="modal-img" src="" alt="Foto Original">
+    </div>
 
     <header class="hero-bg h-screen flex flex-col items-center justify-center text-center text-white px-4">
         <h1 class="text-5xl md:text-7xl mb-4">Bia Fotógrafa</h1>
@@ -93,10 +81,14 @@
     <section class="py-10 bg-white">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-3xl text-center mb-10">Meus Trabalhos</h2>
+            <p class="text-center text-sm text-gray-400 mb-6 italic">(Clique na foto para ver em tamanho real)</p>
             <div class="grid md:grid-cols-3 gap-4">
-                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=600" alt="Portfólio 1" class="w-full h-80 object-cover rounded shadow-sm">
-                <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=600" alt="Portfólio 2" class="w-full h-80 object-cover rounded shadow-sm">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600" alt="Portfólio 3" class="w-full h-80 object-cover rounded shadow-sm">
+                <img src="https://i.postimg.cc/NtCF89gg/IMG-20260115-WA0005.jpg" onclick="openPhoto(this.src)" alt="Trabalho Bia Fotógrafa" class="portfolio-img w-full h-80 object-cover rounded shadow-sm">
+                <img src="https://i.postimg.cc/3JTYRHmS/IMG-20260115-WA0009.jpg" onclick="openPhoto(this.src)" alt="Trabalho Bia Fotógrafa" class="portfolio-img w-full h-80 object-cover rounded shadow-sm">
+                <img src="https://i.postimg.cc/kXmq4dKs/IMG-20260115-WA0019.jpg" onclick="openPhoto(this.src)" alt="Trabalho Bia Fotógrafa" class="portfolio-img w-full h-80 object-cover rounded shadow-sm">
+              <img src="https://i.postimg.cc/8PSN5VMn/IMG-20260115-WA0016.jpg" onclick="openPhoto(this.src)" alt="Trabalho Bia Fotógrafa" class="portfolio-img w-full h-80 object-cover rounded shadow-sm">
+              <img src="https://i.postimg.cc/65Xt3NnY/IMG-20260115-WA0018.jpg" onclick="openPhoto(this.src)" alt="Trabalho Bia Fotógrafa" class="portfolio-img w-full h-80 object-cover rounded shadow-sm">
+              <img src="https://i.postimg.cc/9FhCMjZK/IMG-20260115-WA0017.jpg" onclick="openPhoto(this.src)" alt="Trabalho Bia Fotógrafa" class="portfolio-img w-full h-80 object-cover rounded shadow-sm">
             </div>
         </div>
     </section>
@@ -104,10 +96,6 @@
     <section class="py-20 bg-stone-100">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-4xl text-center mb-4 uppercase tracking-tighter">Investimento</h2>
-            <p class="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
-                Fotografia para o seu momento especial. Escolha o pacote que melhor se adapta às suas necessidades.
-            </p>
-            
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-stone-200 flex flex-col">
                     <div class="bg-stone-800 text-white py-4 px-6 text-center">
@@ -200,7 +188,7 @@
                 <input type="date" id="data-agendamento">
             </div>
 
-            <button onclick="enviarWhatsApp()" class="w-full bg-[#25d366] text-white py-4 rounded-lg font-bold hover:bg-[#1ebe57] transition shadow-md flex items-center justify-center gap-2">
+            <button onclick="enviarWhatsApp()" class="w-full bg-[#25d366] text-white py-4 rounded-lg font-bold hover:bg-[#1ebe57] transition shadow-md">
                 Concluir no WhatsApp
             </button>
         </div>
@@ -213,46 +201,42 @@
     </div>
 
     <script>
-        // Função para Abrir/Fechar
-        function toggleBooking() {
-            const card = document.getElementById('booking-card');
-            if (card.style.display === 'block') {
-                card.style.display = 'none';
-            } else {
-                card.style.display = 'block';
-            }
+        // Funções da Galeria (Lightbox)
+        function openPhoto(url) {
+            const modal = document.getElementById('photo-modal');
+            const modalImg = document.getElementById('modal-img');
+            modal.style.display = 'flex';
+            modalImg.src = url;
         }
 
-        // Função de Envio com Correção de Acentos
+        function closePhoto() {
+            document.getElementById('photo-modal').style.display = 'none';
+        }
+
+        // Funções do Agendamento
+        function toggleBooking() {
+            const card = document.getElementById('booking-card');
+            card.style.display = (card.style.display === 'block') ? 'none' : 'block';
+        }
+
         function enviarWhatsApp() {
-            const numero = "5500000000000"; // INSIRA SEU NÚMERO COM DDD AQUI
-            
+            const numero = "5571982004613";
             const servico = document.getElementById('tipo-servico').value;
             const pacote = document.getElementById('pacote-escolhido').value;
             const dataRaw = document.getElementById('data-agendamento').value;
 
             if (!dataRaw) {
-                alert("Por favor, selecione uma data para o agendamento.");
+                alert("Por favor, selecione uma data.");
                 return;
             }
 
             const dataFormatada = dataRaw.split('-').reverse().join('/');
-            
-            // O texto é montado normalmente com quebras de linha (\n)
-            const mensagemTexto = `Olá Bia! Gostaria de agendar uma sessão:\n\n` + 
-                                  `*Serviço:* ${servico}\n` + 
-                                  `*Pacote:* ${pacote}\n` + 
-                                  `*Data:* ${dataFormatada}`;
+            const mensagem = `Olá Bia! Gostaria de agendar uma sessão:\n\n*Serviço:* ${servico}\n*Pacote:* ${pacote}\n*Data:* ${dataFormatada}`;
 
-            // A função encodeURIComponent converte acentos e espaços para o formato de URL
-            const linkWhatsApp = `https://wa.me/${numero}?text=${encodeURIComponent(mensagemTexto)}`;
-
-            window.open(linkWhatsApp, '_blank');
+            window.open(`https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`, '_blank');
         }
     </script>
 </body>
 </html>
-</html>
-
 
 
